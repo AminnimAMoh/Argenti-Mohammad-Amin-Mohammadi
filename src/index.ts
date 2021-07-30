@@ -4,6 +4,7 @@
 const fs = require("fs");
 import { checkDublications } from "./checkDublications";
 import { checkForStraight } from "./CheckForStraight";
+import { checkForFlush } from "./checkForFlush";
 
 import { Hand } from "./types";
 //Creating an array to reserve all hands read from the text file.
@@ -46,6 +47,7 @@ fs.readFile("Files/poker-hands.txt", "utf8", (err: string, res: string) => {
         handOne.values.push(
           parseInt(handData[0])
             ? +handData[0]
+            //traslating alphabetics to numbers to nake comperisions easier
             : handData[0] === "T"
             ? 10
             : handData[0] === "J"
@@ -63,6 +65,7 @@ fs.readFile("Files/poker-hands.txt", "utf8", (err: string, res: string) => {
         handTwo.values.push(
           parseInt(handData[0])
             ? +handData[0]
+            //traslating alphabetics to numbers to nake comperisions easier
             : handData[0] === "T"
             ? 10
             : handData[0] === "J"
@@ -79,7 +82,12 @@ fs.readFile("Files/poker-hands.txt", "utf8", (err: string, res: string) => {
       }
       if (index === 9) {
         const dublicationState = checkDublications(handOne, handTwo);
+        //Chaking straightState for Consecutive hands.
         const straightState = checkForStraight(handOne, handTwo, dublicationState);
+        //Considering the above results there is no Consecutive hand.
+        //So we can move on to Flush hands.
+        //And skip Straight flush, Royal Flush, and Straight.
+        const flushState=checkForFlush(handOne, handTwo)
       }
     });
   });
