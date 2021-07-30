@@ -25,51 +25,35 @@ export const checkDublications = (
     return value !== null;
   });
 
-  const checkForTwoPair =
-    playerOneSimularValues.length < playerTwoSimularValues.length
-      ? "Player Two Wins"
-      : playerOneSimularValues.length > playerTwoSimularValues.length
-      ? "Player One Wins"
-      : playerOneSimularValues.length === playerTwoSimularValues.length
-      ? "Check Values"
-      : "None";
+  const playersPairStatus = playerThreeOfAKind(playerOneSimularValues);
+  console.log(playersPairStatus, playerOneSimularValues);
+  
+};
 
-  const checkForThreePairs =
-    checkForTwoPair === "Check Values"
-      ? playerOneSimularValues
-          .map(({ lable }) => lable === "Three of a kind")
-          .includes(true) &&
-        playerTwoSimularValues
-          .map(({ lable }) => lable === "Three of a kind")
-          .includes(false)
-        ? "Player One Wins"
-        : playerOneSimularValues
-            .map(({ lable }) => lable === "Three of a kind")
-            .includes(false) &&
-          playerTwoSimularValues
-            .map(({ lable }) => lable === "Three of a kind")
-            .includes(true)
-        ? "Player Two wins"
-        : playerOneSimularValues
-        .map(({ lable }) => lable === "Three of a kind")
-        .includes(true) &&
-      playerTwoSimularValues
-        .map(({ lable }) => lable === "Three of a kind")
-        .includes(true)
-        ? "Draw": "look for something else"
-      : "";
-  // let playerOneOds =
-  //   playerOneSimularValues.length > 0 &&
-  //   playerOneSimularValues.map(({ lable, value }) => {
-  //     return { lable: lable, value: value };
-  //   });
-  // let playerTwoOds =
-  //   playerTwoSimularValues.length > 0 &&
-  //   playerTwoSimularValues.map(({ lable, value }) => {
-  //     if (lable !== null) return { lable: lable, value: value };
-  //   });
+const playerThreeOfAKind = (data: comperingValues[]): string => {
+  const threeOfAKind = data
+    .map(({ lable }) => {
+      return lable === "Three of a kind";
+    })
+    .includes(true);
+  const pair = data
+    .map(({ lable }) => {
+      return lable === "Pair";
+    })
+    .includes(true);
 
-  console.log(checkForThreePairs);
+  const state =
+    threeOfAKind && pair
+      ? "Full house"
+      : threeOfAKind && !pair
+      ? "Three of a kind"
+      : !threeOfAKind && pair && data.length > 1
+      ? "Two Pair"
+      : !threeOfAKind && pair
+      ? "Pair"
+      : "none";
+
+  return state;
 };
 
 const lookForSimularities = (
