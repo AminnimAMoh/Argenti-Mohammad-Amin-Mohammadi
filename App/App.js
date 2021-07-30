@@ -14,5 +14,5 @@ fs.readFile("Files/poker-hands.txt", "utf8", (err, res) => {
     console.log(splitedData);
   });
 
-  console.log(inputData);
+//   console.log(inputData);
 });
