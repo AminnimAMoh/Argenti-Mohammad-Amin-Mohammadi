@@ -54,6 +54,8 @@ fs.readFile("Files/poker-hands.txt", "utf8", (err: string, res: string) => {
             ? 12
             : handData[0] === "K"
             ? 13
+            : handData[0] === "A"
+            ? 14
             : handData[0]
         );
         handOne.suits.push(handData[1]);
@@ -69,6 +71,8 @@ fs.readFile("Files/poker-hands.txt", "utf8", (err: string, res: string) => {
             ? 12
             : handData[0] === "K"
             ? 13
+            : handData[0] === "A"
+            ? 14
             : handData[0]
         );
         handTwo.suits.push(handData[1]);

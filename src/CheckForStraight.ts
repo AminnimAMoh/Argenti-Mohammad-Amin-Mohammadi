@@ -12,11 +12,12 @@ export const checkForStraight = (
   let playerOne: (string | number | null)[] = [null];
   let playerTwo: (string | number | null)[] = [null];
 
-  if (playerOnePairStatus === "none") playerOne = playerOneValues.sort();
-  if (playerTwoPairStatus === "none") playerTwo = playerTwoValues.sort();
+  if (playerOnePairStatus === "none") playerOne = playerOneValues.sort((a: any,b: any)=> {return a - b});
+  if (playerTwoPairStatus === "none") playerTwo = playerTwoValues.sort((a: any,b: any)=> {return a - b});
 
-  const playerOneStraightState = checkForConsecutive(playerTwo);
-  console.log(playerOneStraightState, playerTwo);
+  let playerOneStraightState=false; 
+  if (playerOnePairStatus === "none") playerOneStraightState = checkForConsecutive(playerOne);
+  playerOneStraightState && console.log(playerOneStraightState,playerOneValues);
 };
 
 const checkForConsecutive = (data: any): boolean => {
@@ -26,12 +27,7 @@ const checkForConsecutive = (data: any): boolean => {
     let check = true;
     while (i < data.length) {
       d = data[i + 1] - data[i];
-      if (
-        d !== 1 &&
-        typeof data[i + 1] === "number" &&
-        typeof data[i] === "number"
-      )
-        check = false;
+      if (d !== 1) check = false;
       i++;
     }
     return check;
