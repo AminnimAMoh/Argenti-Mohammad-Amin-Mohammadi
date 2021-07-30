@@ -26,7 +26,8 @@ export const checkDublications = (
   });
 
   const playersPairStatus = playerThreeOfAKind(playerOneSimularValues);
-  console.log(playersPairStatus, playerOneSimularValues);
+  const playerTwoStatus=playerThreeOfAKind(playerTwoSimularValues);
+  console.log(playerTwoStatus, playerTwoSimularValues);
   
 };
 
