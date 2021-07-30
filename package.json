@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@reduxjs/toolkit": "^1.6.1",
     "@types/express": "^4.17.13",
     "@types/node": "^16.4.7",
     "express": "^4.17.1",

@@ -7,18 +7,69 @@ interface comperingValues {
 //using this function we can make decisions on hands and comper them. 😀
 export const checkDublications = (
   //Deconstructing the arguments for an easier access in the code.
-  { values: playerOneValues}: Hand,
-  { values: playerTwoValues}: Hand
+  { values: playerOneValues }: Hand,
+  { values: playerTwoValues }: Hand
 ) => {
   //Sending each player hand to 'lookForSimularities' to find dublications.
   //This function helps us to find Pairs, Three Pairs, and Two Pairs
   //Each user's dublication will be saved in an array for all hands.
   //Then we can comper two players using these arrays.
-  const playerOneSimularValues: comperingValues[] =
-    lookForSimularities(playerOneValues);
-  const playerTwoSimularValues: comperingValues[] =
-    lookForSimularities(playerTwoValues);
-  console.log(playerTwoSimularValues);
+  const playerOneSimularValues: comperingValues[] = lookForSimularities(
+    playerOneValues
+  ).filter(({ value }) => {
+    return value !== null;
+  });
+  const playerTwoSimularValues: comperingValues[] = lookForSimularities(
+    playerTwoValues
+  ).filter(({ value }) => {
+    return value !== null;
+  });
+
+  const checkForTwoPair =
+    playerOneSimularValues.length < playerTwoSimularValues.length
+      ? "Player Two Wins"
+      : playerOneSimularValues.length > playerTwoSimularValues.length
+      ? "Player One Wins"
+      : playerOneSimularValues.length === playerTwoSimularValues.length
+      ? "Check Values"
+      : "None";
+
+  const checkForThreePairs =
+    checkForTwoPair === "Check Values"
+      ? playerOneSimularValues
+          .map(({ lable }) => lable === "Three of a kind")
+          .includes(true) &&
+        playerTwoSimularValues
+          .map(({ lable }) => lable === "Three of a kind")
+          .includes(false)
+        ? "Player One Wins"
+        : playerOneSimularValues
+            .map(({ lable }) => lable === "Three of a kind")
+            .includes(false) &&
+          playerTwoSimularValues
+            .map(({ lable }) => lable === "Three of a kind")
+            .includes(true)
+        ? "Player Two wins"
+        : playerOneSimularValues
+        .map(({ lable }) => lable === "Three of a kind")
+        .includes(true) &&
+      playerTwoSimularValues
+        .map(({ lable }) => lable === "Three of a kind")
+        .includes(true)
+        ? "Draw": "look for something else"
+      : "";
+  // let playerOneOds =
+  //   playerOneSimularValues.length > 0 &&
+  //   playerOneSimularValues.map(({ lable, value }) => {
+  //     return { lable: lable, value: value };
+  //   });
+  // let playerTwoOds =
+  //   playerTwoSimularValues.length > 0 &&
+  //   playerTwoSimularValues.map(({ lable, value }) => {
+  //     if (lable !== null) return { lable: lable, value: value };
+  //   });
+
+  console.log(checkForThreePairs);
 };
 
 const lookForSimularities = (
@@ -52,6 +103,7 @@ const lookForSimularities = (
 
     //If the count value is 1 it means we have a new pair and we add it to the 'handSimularities' with its value.
     //And if the count value is 2 it means we have a Three of a kind and we add it to the 'handSimularities' with its value.
+    //Otherwise it will return an null object.
     count === 1
       ? handSimularities.push({ lable: "Pair", value: valueToComper })
       : count === 2
