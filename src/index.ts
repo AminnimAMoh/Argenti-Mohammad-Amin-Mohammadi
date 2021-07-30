@@ -36,10 +36,15 @@ fs.readFile("Files/poker-hands.txt", "utf8", (err: string, res: string) => {
       //If the itteration index is less than 5 cards go to player one so we reserved them in handOne
       //Else the cards will be reserved in handTwo
       if (index < 5) {
-        handOne.values.push(parseInt(handData[0]) ? +handData[0] : handData[0]);
+        handData.length>2 && console.log('Helloo');
+        //At first I thought there is no 10 in data. 😆
+        //When I saw 'T' i changed the condition to change 'T' tpo 10.
+        //I am using indexes to simplify reading.
+        //I could use charAt but i find it easier to read.
+        handOne.values.push(parseInt(handData[0]) ? +handData[0] : handData[0]==='T' ? 10 : handData[0]);
         handOne.suits.push(handData[1])
       } else {
-        handTwo.values.push(parseInt(handData[0]) ? +handData[0] : handData[0]);
+        handTwo.values.push(parseInt(handData[0]) ? +handData[0] : handData[0]==='T' ? 10 : handData[0]);
         handTwo.suits.push(handData[1])
       }
         index === 9 && judgeHands(handOne, handTwo);
