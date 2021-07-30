@@ -1,9 +1,9 @@
 //In this file I mainly read and sort the hands from "Files/poker-hands.txt"
-//And this data will be judged in 'judge.ts' file.
+//And this data will be checked in 'checkDublications.ts' file.
 
 
 const fs = require("fs");
-import {judgeHands} from './judge'
+import {checkDublications} from './checkDublications'
 import {Hand} from './types'
 //Creating an array to reserve all hands read from the text file.
 let inputData: Array<string> = [];
@@ -47,7 +47,7 @@ fs.readFile("Files/poker-hands.txt", "utf8", (err: string, res: string) => {
         handTwo.values.push(parseInt(handData[0]) ? +handData[0] : handData[0]==='T' ? 10 : handData[0]);
         handTwo.suits.push(handData[1])
       }
-        index === 9 && judgeHands(handOne, handTwo);
+        index === 9 && checkDublications(handOne, handTwo);
     });
   });
 
