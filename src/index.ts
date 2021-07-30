@@ -6,7 +6,7 @@ const fs = require("fs");
 import {judgeHands} from './judge'
 import {Hand} from './types'
 //Creating an array to reserve all hands read from the text file.
-let inputData = [];
+let inputData: Array<string> = [];
 
 //Runnig a File Scan on the poker-hands.txt to read the data for the game.
 fs.readFile("Files/poker-hands.txt", "utf8", (err: string, res: string) => {
