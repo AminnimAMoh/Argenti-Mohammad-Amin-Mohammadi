@@ -1,15 +1,12 @@
 //Importing the array type to be used as arrgument type control.
-import { Hand } from "./types";
-interface comperingValues {
-  lable: string | null;
-  value: number | string | null;
-}
+import { Hand, comperingValues, PairState } from "./types";
+
 //using this function we can make decisions on hands and comper them. 😀
 export const checkDublications = (
   //Deconstructing the arguments for an easier access in the code.
   { values: playerOneValues }: Hand,
   { values: playerTwoValues }: Hand
-) => {
+): PairState => {
   //Sending each player hand to 'lookForSimularities' to find dublications.
   //This function helps us to find Pairs, Three Pairs, and Two Pairs
   //Each user's dublication will be saved in an array for all hands.
@@ -25,24 +22,38 @@ export const checkDublications = (
     return value !== null;
   });
 
-  const playersPairStatus = playerThreeOfAKind(playerOneSimularValues);
-  const playerTwoStatus=playerThreeOfAKind(playerTwoSimularValues);
-  console.log(playerTwoStatus, playerTwoSimularValues);
-  
+  //Sneding each player's sorted hand to 'playerThreeOfAKind' to tag them with their
+  //status regarding hand dublications.
+  const playerOnePairStatus = playerThreeOfAKind(playerOneSimularValues);
+  const playerTwoPairStatus = playerThreeOfAKind(playerTwoSimularValues);
+
+  return {playerOnePairStatus: playerOnePairStatus, playerTwoPairStatus: playerTwoPairStatus}
 };
 
+//Sneding each player's sorted hand to 'playerThreeOfAKind' to tag them with their
+//status regarding hand dublications.
 const playerThreeOfAKind = (data: comperingValues[]): string => {
+  //Maping through the data and looking if it contains "Three of a kind".
+  const fourOfAKind = data
+  .map(({ lable }) => {
+    return lable === "Four of a kind";
+  })
+  .includes(true)
+
   const threeOfAKind = data
     .map(({ lable }) => {
       return lable === "Three of a kind";
     })
     .includes(true);
+
+  //Maping through the data and looking if it contains "Pair".
   const pair = data
     .map(({ lable }) => {
       return lable === "Pair";
     })
     .includes(true);
 
+  //Condition to set the status.
   const state =
     threeOfAKind && pair
       ? "Full house"
@@ -52,6 +63,8 @@ const playerThreeOfAKind = (data: comperingValues[]): string => {
       ? "Two Pair"
       : !threeOfAKind && pair
       ? "Pair"
+      : fourOfAKind
+      ? "Four of a kind"
       : "none";
 
   return state;
@@ -94,6 +107,11 @@ const lookForSimularities = (
       : count === 2
       ? handSimularities.push({
           lable: "Three of a kind",
+          value: valueToComper,
+        })
+        :count === 2
+        ? handSimularities.push({
+          lable: "Four of a kind",
           value: valueToComper,
         })
       : null;

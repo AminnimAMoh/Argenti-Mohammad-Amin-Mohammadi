@@ -1,10 +1,11 @@
 //In this file I mainly read and sort the hands from "Files/poker-hands.txt"
 //And this data will be checked in 'checkDublications.ts' file.
 
-
 const fs = require("fs");
-import {checkDublications} from './checkDublications'
-import {Hand} from './types'
+import { checkDublications } from "./checkDublications";
+import { checkForStraight } from "./CheckForStraight";
+
+import { Hand } from "./types";
 //Creating an array to reserve all hands read from the text file.
 let inputData: Array<string> = [];
 
@@ -28,6 +29,8 @@ fs.readFile("Files/poker-hands.txt", "utf8", (err: string, res: string) => {
     let handOne: Hand = { values: [], suits: [] };
     let handTwo: Hand = { values: [], suits: [] };
 
+    let handOneTest: string='';
+
     // looping through all cards in a hand and suffle them between our two players.
     //First 5 cards will go to player one.
     //Second (rest) will go to player two.
@@ -36,19 +39,44 @@ fs.readFile("Files/poker-hands.txt", "utf8", (err: string, res: string) => {
       //If the itteration index is less than 5 cards go to player one so we reserved them in handOne
       //Else the cards will be reserved in handTwo
       if (index < 5) {
-        handData.length>2 && console.log('Helloo');
         //At first I thought there is no 10 in data. 😆
         //When I saw 'T' i changed the condition to change 'T' tpo 10.
         //I am using indexes to simplify reading.
         //I could use charAt but i find it easier to read.
-        handOne.values.push(parseInt(handData[0]) ? +handData[0] : handData[0]==='T' ? 10 : handData[0]);
-        handOne.suits.push(handData[1])
+        handOne.values.push(
+          parseInt(handData[0])
+            ? +handData[0]
+            : handData[0] === "T"
+            ? 10
+            : handData[0] === "J"
+            ? 11
+            : handData[0] === "Q"
+            ? 12
+            : handData[0] === "K"
+            ? 13
+            : handData[0]
+        );
+        handOne.suits.push(handData[1]);
       } else {
-        handTwo.values.push(parseInt(handData[0]) ? +handData[0] : handData[0]==='T' ? 10 : handData[0]);
-        handTwo.suits.push(handData[1])
+        handTwo.values.push(
+          parseInt(handData[0])
+            ? +handData[0]
+            : handData[0] === "T"
+            ? 10
+            : handData[0] === "J"
+            ? 11
+            : handData[0] === "Q"
+            ? 12
+            : handData[0] === "K"
+            ? 13
+            : handData[0]
+        );
+        handTwo.suits.push(handData[1]);
       }
-        index === 9 && checkDublications(handOne, handTwo);
+      if (index === 9) {
+        const dublicationState = checkDublications(handOne, handTwo);
+        const straightState = checkForStraight(handOne, handTwo, dublicationState);
+      }
     });
   });
-
 });

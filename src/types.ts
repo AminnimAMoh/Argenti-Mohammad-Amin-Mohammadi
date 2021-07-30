@@ -5,3 +5,13 @@ export interface Hand {
   values: Array<number | string | null>;
   suits: Array<string | null>;
 }
+
+export interface comperingValues {
+  lable: string | null;
+  value: number | string | null;
+}
+
+export interface PairState{
+  playerOnePairStatus: string,
+  playerTwoPairStatus: string
+}
