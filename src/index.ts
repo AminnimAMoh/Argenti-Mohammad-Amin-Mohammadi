@@ -84,10 +84,11 @@ fs.readFile("Files/poker-hands.txt", "utf8", (err: string, res: string) => {
         const dublicationState = checkDublications(handOne, handTwo);
         //Chaking straightState for Consecutive hands.
         const straightState = checkForStraight(handOne, handTwo, dublicationState);
-        //Considering the above results there is no Consecutive hand.
-        //So we can move on to Flush hands.
-        //And skip Straight flush, Royal Flush, and Straight.
-        // const flushState=checkForFlush(handOne, handTwo)
+        //The iterations showed there is only one hand with 5 Consecutive: Player Two  [ 4, 5, 6, 7, 8 ]
+
+        //Iterating through all hands an looking for hands with 5 simular suits.
+        //Results shown none.
+        const flushState=checkForFlush(handOne, handTwo)
       }
     });
   });
