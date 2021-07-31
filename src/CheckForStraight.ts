@@ -27,28 +27,18 @@ export const checkForStraight = (
 };
 
 const checkForConsecutive = (data: any): boolean => {
-  //An index to stop the loop at the end of the data array.
-    let i: number = 0;
-    //d is a variable to save the distance.
-    let d = null;
-    //A visited boolean to turn false if visited.
-    //False would mean the hand is not Consecutive
-    let check = true;
-
-    //Breaking out of the loop if index reached the end of the data or the visited variable is false.
-    //Breaking the loop helps time complexity a littel as cuting out unnessesary itterations.
-    while (i < data.length || !check) {
-      //Calculating the distance between two close indexes
-      d = data[i + 1] - data[i];
-      //if the distance between two numbers is not equal one 
-      //that means the hand is not straight.
-      //As we have sorted the array we can trust naighbers. 
-      if (d !== 1) check = false;
-
-      //Increasing the index
-      i++;
-    }
-
-    //Returning the visiting variable.
-    return check;
+  //This is the quickest way I could think of to check if an array values are Consecutive.
+  //I have recived a sorted array from small to large.
+  //So the very first index is the min of the array and the last index is the largest.
+  const min=+data[0];
+  const max=+data[data.length-1]
+  //If we calculate the distance between min and max of the array in Consecutive array
+  //distance must be data.length-1.
+  //for example in array [2,3,4,5,6] min is 2 and max 6
+  //and 6-2=4 and the same for [3,4,5,6,7] 3-7=4.
+  const distance=max-min;
+  
+  //So if the distance between min and max is grater than data.length-1 the array is not Consecutive
+  //So we return false
+  if(distance>data.length-1) {return false }else{return true};
 };

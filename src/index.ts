@@ -87,7 +87,7 @@ fs.readFile("Files/poker-hands.txt", "utf8", (err: string, res: string) => {
         //Considering the above results there is no Consecutive hand.
         //So we can move on to Flush hands.
         //And skip Straight flush, Royal Flush, and Straight.
-        const flushState=checkForFlush(handOne, handTwo)
+        // const flushState=checkForFlush(handOne, handTwo)
       }
     });
   });

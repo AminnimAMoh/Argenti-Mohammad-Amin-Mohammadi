@@ -7,6 +7,6 @@ export const checkForFlush = (
   { suits: playerOnelables }: Hand,
   { suits: playerTwolables }: Hand,
 ) => {
-    console.log(playerOnelables);
+    // console.log(playerOnelables);
     
 }
