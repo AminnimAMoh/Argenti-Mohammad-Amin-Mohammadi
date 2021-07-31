@@ -15,3 +15,13 @@ export interface PairState{
   playerOnePairStatus: string,
   playerTwoPairStatus: string
 }
+
+export interface StraightState{
+  playerOneStraightState: boolean,
+  playerTwoStraightState: boolean
+}
+
+export interface FlushState{
+  playerOneFlushState: boolean,
+  playerTwoFlushState: boolean
+}

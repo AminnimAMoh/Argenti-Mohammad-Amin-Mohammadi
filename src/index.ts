@@ -5,10 +5,14 @@ const fs = require("fs");
 import { checkDublications } from "./checkDublications";
 import { checkForStraight } from "./CheckForStraight";
 import { checkForFlush } from "./checkForFlush";
+import {judgeHandsAndFindTheWinner} from './judgeHands'
 
 import { Hand } from "./types";
 //Creating an array to reserve all hands read from the text file.
 let inputData: Array<string> = [];
+
+let playerOneWins: number=0;
+let playerTwoWins: number=0;
 
 //Runnig a File Scan on the poker-hands.txt to read the data for the game.
 fs.readFile("Files/poker-hands.txt", "utf8", (err: string, res: string) => {
@@ -85,11 +89,20 @@ fs.readFile("Files/poker-hands.txt", "utf8", (err: string, res: string) => {
         //Chaking straightState for Consecutive hands.
         const straightState = checkForStraight(handOne, handTwo, dublicationState);
         //The iterations showed there is only one hand with 5 Consecutive: Player Two  [ 4, 5, 6, 7, 8 ]
+        //The only hand found straight is Player Two  [ 4, 5, 6, 7, 8 ] and it cannot be Royal Flush
+        //So I skip Royal Flush to save time
 
         //Iterating through all hands an looking for hands with 5 simular suits.
         //Results shown none.
         const flushState=checkForFlush(handOne, handTwo)
+        //One hand with ods for straigt and not flush hand means we do not have straight flush.
+        //So I wont check for them to save time.
+
+        const judgeHands=judgeHandsAndFindTheWinner(dublicationState, straightState, handOne, handTwo)
+        if(judgeHands==='Player One wins') {playerOneWins++}else if(judgeHands==='Player Two wins') {playerTwoWins++}
       }
+      console.log(playerOneWins, playerTwoWins);
+      
     });
   });
 });

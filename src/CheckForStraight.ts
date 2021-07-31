@@ -1,5 +1,5 @@
 //Importing the array type to be used as arrgument type control.
-import { Hand, PairState } from "./types";
+import { Hand, PairState, StraightState } from "./types";
 
 //using this function we can make decisions on hands and comper them. 😀
 export const checkForStraight = (
@@ -8,7 +8,7 @@ export const checkForStraight = (
   { values: playerTwoValues }: Hand,
   //Receiving players Pair status to check if they have pairs that are not eligible for this section.
   { playerOnePairStatus, playerTwoPairStatus }: PairState
-): { playerOneStraightState: boolean; playerTwoStraightState: boolean } => {
+): StraightState => {
   //Two arrays for reserving the sorted arrays
   let playerOne: (string | number | null)[] = [null];
   let playerTwo: (string | number | null)[] = [null];
