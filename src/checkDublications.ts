@@ -26,7 +26,8 @@ export const checkDublications = (
   //status regarding hand dublications.
   const playerOnePairStatus = {lable: playerThreeOfAKind(playerOneSimularValues), hand: playerOneSimularValues};
   const playerTwoPairStatus = {lable: playerThreeOfAKind(playerTwoSimularValues), hand: playerTwoSimularValues};
-
+  if(playerOnePairStatus.lable==='Full house') console.log(playerOneSimularValues);
+  
   return {playerOnePairStatus: playerOnePairStatus, playerTwoPairStatus: playerTwoPairStatus}
 };
 
