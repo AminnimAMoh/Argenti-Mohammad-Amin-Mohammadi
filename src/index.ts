@@ -114,6 +114,7 @@ fs.readFile("Files/poker-hands.txt", "utf8", (err: string, res: string) => {
         );
         // console.log(judgeHands);
 
+        //Incrimenting won hands for winner player chanking the string output from judgeHands function.
         if (judgeHands === "Player One wins") {
           playerOneWins++;
         } else if (judgeHands === "Player Two wins") {
@@ -122,8 +123,16 @@ fs.readFile("Files/poker-hands.txt", "utf8", (err: string, res: string) => {
       }
     });
   });
+
+  //Showing the last result in console
   console.log(
-    "Player One wins " + playerOneWins,
-    "Player Two wins " + playerTwoWins
+    `Player One :  ${playerOneWins} 'Hands',`,
+    '\n',
+    `Player Two :  ${playerTwoWins} 'Hands',`
   );
+
+  //Creating the STDOUT.text file containing the programm results.
+  fs.writeFile('STDOUT.text', `Player One :  ${playerOneWins} Hands \n Player Two :  ${playerTwoWins} Hands`, (err: any)=>{
+    err ? console.log(err) : console.log('STDOUT Ready to read. Thank you for your time.');
+  })
 });

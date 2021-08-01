@@ -10,12 +10,15 @@ export interface Hand {
   suits: Array<string >;
 }
 
+//This interface handle types for hands in process of look For Simularities.
 export interface comperingValues {
   lable: string | null;
   value: number | string | null;
 }
 
+//This interface handle types for hands dublication check state.
 export interface PairState{
+  //Each player must have a lable for the Pair hand and the value/values making the pairs
   playerOnePairStatus: {
     lable: string,
     hand: comperingValues[],
@@ -26,11 +29,13 @@ export interface PairState{
   }
 }
 
+//This interface handle types for hands straight hands.
 export interface StraightState{
   playerOneStraightState: boolean,
   playerTwoStraightState: boolean
 }
 
+// This interface handle types for flush hands.
 export interface FlushState{
   playerOneFlushState: boolean,
   playerTwoFlushState: boolean
