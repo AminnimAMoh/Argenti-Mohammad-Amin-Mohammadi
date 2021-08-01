@@ -125,9 +125,9 @@ fs.readFile("Files/poker-hands.txt", "utf8", (err: string, res: string) => {
 
   //Showing the last result in console
   console.log(
-    `Player One :  ${playerOneWins} 'Hands',`,
+    `Player One :  ${playerOneWins} Hands,`,
     '\n',
-    `Player Two :  ${playerTwoWins} 'Hands',`
+    `Player Two :  ${playerTwoWins} Hands,`
   );
 
   //Creating the STDOUT.text file containing the programm results.
