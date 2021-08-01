@@ -21,11 +21,11 @@ export const checkDublications = (
   ).filter(({ value }) => {
     return value !== null;
   });
-
+  
   //Sneding each player's sorted hand to 'playerThreeOfAKind' to tag them with their
   //status regarding hand dublications.
-  const playerOnePairStatus = playerThreeOfAKind(playerOneSimularValues);
-  const playerTwoPairStatus = playerThreeOfAKind(playerTwoSimularValues);
+  const playerOnePairStatus = {lable: playerThreeOfAKind(playerOneSimularValues), hand: playerOneSimularValues};
+  const playerTwoPairStatus = {lable: playerThreeOfAKind(playerTwoSimularValues), hand: playerTwoSimularValues};
 
   return {playerOnePairStatus: playerOnePairStatus, playerTwoPairStatus: playerTwoPairStatus}
 };
@@ -33,6 +33,7 @@ export const checkDublications = (
 //Sneding each player's sorted hand to 'playerThreeOfAKind' to tag them with their
 //status regarding hand dublications.
 const playerThreeOfAKind = (data: comperingValues[]): string => {
+  
   //Maping through the data and looking if it contains "Three of a kind".
   const fourOfAKind = data
   .map(({ lable }) => {
@@ -67,7 +68,8 @@ const playerThreeOfAKind = (data: comperingValues[]): string => {
       ? "Four of a kind"
       : "none";
 
-  return state;
+  // return {lable: state, value: data.value};
+  return state
 };
 
 const lookForSimularities = (

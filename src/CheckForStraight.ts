@@ -27,9 +27,9 @@ export const checkForStraight = (
 
   //By checking pair status of each player hand we can narrow the number of hands
   //To be iterated. Because if there is any dublication that mean we cannot have Consecutive of 5.
-  if (playerOnePairStatus === "none")
+  if (playerOnePairStatus.lable === "none")
     playerOneStraightState = checkForConsecutive(playerOne);
-  if (playerTwoPairStatus === "none")
+  if (playerTwoPairStatus.lable === "none")
     playerTwoStraightState = checkForConsecutive(playerTwo);
   //The iterations showed there is only one hand with 5 Consecutive: Player Two  [ 4, 5, 6, 7, 8 ]
 

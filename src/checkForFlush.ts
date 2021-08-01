@@ -16,8 +16,8 @@ export const checkForFlush = (
   });
 
   //If the length of the filtered array was equal to 5 it means that hand is flush (all suits are simular).
-  const playerOneFlushState = playerOneFlushCheck.length === 4 ? true : false;
-  const playerTwoFlushState = playerTwoFlushCheck.length === 4 ? true : false;
+  const playerOneFlushState = playerOneFlushCheck.length === 5 ? true : false;
+  const playerTwoFlushState = playerTwoFlushCheck.length === 5 ? true : false;
 
   return {
     playerOneFlushState: playerOneFlushState,

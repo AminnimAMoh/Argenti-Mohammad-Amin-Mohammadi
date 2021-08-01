@@ -22,7 +22,7 @@ fs.readFile("Files/poker-hands.txt", "utf8", (err: string, res: string) => {
   //Spliting each hand in the data using enter ('\n') in the string.
   //So we will have access to one hand at each index of the inputData array.
   inputData = res.split("\n");
-
+  
   //looping through all hands in the inputData array.
   //So we can splite each card and shuffle hands to our players.
   inputData.map((data, dataIndex) => {
@@ -99,10 +99,11 @@ fs.readFile("Files/poker-hands.txt", "utf8", (err: string, res: string) => {
         //So I wont check for them to save time.
 
         const judgeHands=judgeHandsAndFindTheWinner(dublicationState, straightState, handOne, handTwo)
+        // console.log(judgeHands);
+        
         if(judgeHands==='Player One wins') {playerOneWins++}else if(judgeHands==='Player Two wins') {playerTwoWins++}
       }
-      console.log(playerOneWins, playerTwoWins);
-      
     });
   });
+  console.log('Player One wins '+playerOneWins, 'Player Two wins '+playerTwoWins);
 });
