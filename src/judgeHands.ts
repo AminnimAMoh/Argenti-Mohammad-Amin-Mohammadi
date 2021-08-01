@@ -37,8 +37,12 @@ export const judgeHandsAndFindTheWinner = (
         playerOnePairStatus.hand[0].value > playerTwoPairStatus.hand[0].value
       ) {
         return "Player One wins";
-      } else {
+      } else if(playerOnePairStatus.hand[0].value < playerTwoPairStatus.hand[0].value){
         return "Player Two wins";
+      }else if(playerOnePairStatus.hand[0].value === playerTwoPairStatus.hand[0].value){
+        return highCardCheck(playerOneValues, playerTwoValues)
+      }else{
+        return 'Undefiend!!!!!!!!!!!'
       }
     } else {
       return "Target Undefined!!!!!!!!!!";
@@ -65,8 +69,12 @@ export const judgeHandsAndFindTheWinner = (
         playerOnePairStatus.hand[0].value > playerTwoPairStatus.hand[0].value
       ) {
         return "Player One wins";
-      } else {
+      } else if(playerOnePairStatus.hand[0].value < playerTwoPairStatus.hand[0].value){
         return "Player Two wins";
+      }else if(playerOnePairStatus.hand[0].value === playerTwoPairStatus.hand[0].value){
+        return highCardCheck(playerOneValues, playerTwoValues)
+      }else{
+        return 'Undefiend!!!!!!!!!!!'
       }
     } else {
       return "Target Undefined!!!!!!!!!!";
@@ -97,8 +105,12 @@ export const judgeHandsAndFindTheWinner = (
         playerOnePairStatus.hand[0].value > playerTwoPairStatus.hand[0].value
       ) {
         return "Player One wins";
-      } else {
+      } else if(playerOnePairStatus.hand[0].value < playerTwoPairStatus.hand[0].value){
         return "Player Two wins";
+      }else if(playerOnePairStatus.hand[0].value === playerTwoPairStatus.hand[0].value){
+        return highCardCheck(playerOneValues, playerTwoValues)
+      }else{
+        return 'Undefiend!!!!!!!!!!!'
       }
     } else {
       return "Target Undefined!!!!!!!!!!";
@@ -125,11 +137,15 @@ export const judgeHandsAndFindTheWinner = (
         playerOnePairStatus.hand[0].value > playerTwoPairStatus.hand[0].value
       ) {
         return "Player One wins";
-      } else if (playerOnePairStatus.hand[0].value < playerTwoPairStatus.hand[0].value){
+      } else if(playerOnePairStatus.hand[0].value < playerTwoPairStatus.hand[0].value){
         return "Player Two wins";
+      }else if(playerOnePairStatus.hand[0].value === playerTwoPairStatus.hand[0].value){
+        return highCardCheck(playerOneValues, playerTwoValues)
+      }else{
+        return 'Undefiend!!!!!!!!!!!'
       }
     } else {
-      return highCardCheck(playerOneValues, playerTwoValues);
+      return "Target Undefined!!!!!!!!!!";
     }
   } else if (
     playerOnePairStatus.lable === "Pair" &&
@@ -153,33 +169,34 @@ export const judgeHandsAndFindTheWinner = (
         playerOnePairStatus.hand[0].value > playerTwoPairStatus.hand[0].value
       ) {
         return "Player One wins";
-      } else {
+      } else if(playerOnePairStatus.hand[0].value < playerTwoPairStatus.hand[0].value){
         return "Player Two wins";
+      }else if(playerOnePairStatus.hand[0].value === playerTwoPairStatus.hand[0].value){
+        return highCardCheck(playerOneValues, playerTwoValues)
+      }else{
+        return 'Undefiend!!!!!!!!!!!'
       }
     } else {
       return "Target Undefined!!!!!!!!!!";
     }
   } else {
-    return highCardCheck(playerOneValues, playerTwoValues);
+    return highCardCheck(playerOneValues, playerTwoValues)
   }
 };
 
-const highCardCheck = (
-  playerOneValues: (string | number)[],
-  playerTwoValues: (string | number)[]
-): string => {
+const highCardCheck=(playerOneValues: (string | number)[] , playerTwoValues:(string | number)[]): string=>{
   let visitor: boolean = false;
   let count: number = 5;
   while (!visitor && count >= 0) {
     if (playerOneValues[count] > playerTwoValues[count]) {
       visitor = true;
       return "Player One wins";
-    } else if (playerOneValues[count] < playerTwoValues[count]) {
+    }else if (playerOneValues[count] < playerTwoValues[count]) {
       visitor = true;
       return "Player Two wins";
-    } else {
+    }else{
       count--;
     }
   }
-  return "none";
-};
+  return 'none'
+}
