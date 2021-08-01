@@ -1,4 +1,8 @@
 //Creating a new type to controle the type of the values in the arrays.
+
+//All arguments are type checked so if I make a small mistack I will be notified straght away.
+//This is very important for mentainable programs.
+
 export interface Hand {
   //I decide to set the values to two possible types as they
   //eather can be string for "King, Queen, Solder" and numbers.

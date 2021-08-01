@@ -5,14 +5,14 @@ const fs = require("fs");
 import { checkDublications } from "./checkDublications";
 import { checkForStraight } from "./CheckForStraight";
 import { checkForFlush } from "./checkForFlush";
-import {judgeHandsAndFindTheWinner} from './judgeHands'
+import { judgeHandsAndFindTheWinner } from "./judgeHands";
 
 import { Hand } from "./types";
 //Creating an array to reserve all hands read from the text file.
 let inputData: Array<string> = [];
 
-let playerOneWins: number=0;
-let playerTwoWins: number=0;
+let playerOneWins: number = 0;
+let playerTwoWins: number = 0;
 
 //Runnig a File Scan on the poker-hands.txt to read the data for the game.
 fs.readFile("Files/poker-hands.txt", "utf8", (err: string, res: string) => {
@@ -22,7 +22,7 @@ fs.readFile("Files/poker-hands.txt", "utf8", (err: string, res: string) => {
   //Spliting each hand in the data using enter ('\n') in the string.
   //So we will have access to one hand at each index of the inputData array.
   inputData = res.split("\n");
-  
+
   //looping through all hands in the inputData array.
   //So we can splite each card and shuffle hands to our players.
   inputData.map((data, dataIndex) => {
@@ -34,7 +34,7 @@ fs.readFile("Files/poker-hands.txt", "utf8", (err: string, res: string) => {
     let handOne: Hand = { values: [], suits: [] };
     let handTwo: Hand = { values: [], suits: [] };
 
-    let handOneTest: string='';
+    let handOneTest: string = "";
 
     // looping through all cards in a hand and suffle them between our two players.
     //First 5 cards will go to player one.
@@ -51,8 +51,8 @@ fs.readFile("Files/poker-hands.txt", "utf8", (err: string, res: string) => {
         handOne.values.push(
           parseInt(handData[0])
             ? +handData[0]
-            //traslating alphabetics to numbers to nake comperisions easier
-            : handData[0] === "T"
+            : //traslating alphabetics to numbers to nake comperisions easier
+            handData[0] === "T"
             ? 10
             : handData[0] === "J"
             ? 11
@@ -69,8 +69,8 @@ fs.readFile("Files/poker-hands.txt", "utf8", (err: string, res: string) => {
         handTwo.values.push(
           parseInt(handData[0])
             ? +handData[0]
-            //traslating alphabetics to numbers to nake comperisions easier
-            : handData[0] === "T"
+            : //traslating alphabetics to numbers to nake comperisions easier
+            handData[0] === "T"
             ? 10
             : handData[0] === "J"
             ? 11
@@ -87,23 +87,43 @@ fs.readFile("Files/poker-hands.txt", "utf8", (err: string, res: string) => {
       if (index === 9) {
         const dublicationState = checkDublications(handOne, handTwo);
         //Chaking straightState for Consecutive hands.
-        const straightState = checkForStraight(handOne, handTwo, dublicationState);
+        const straightState = checkForStraight(
+          handOne,
+          handTwo,
+          dublicationState
+        );
         //The iterations showed there is only one hand with 5 Consecutive: Player Two  [ 4, 5, 6, 7, 8 ]
         //The only hand found straight is Player Two  [ 4, 5, 6, 7, 8 ] and it cannot be Royal Flush
         //So I skip Royal Flush to save time
 
         //Iterating through all hands an looking for hands with 5 simular suits.
         //Results shown none.
-        const flushState=checkForFlush(handOne, handTwo)
+        const flushState = checkForFlush(handOne, handTwo);
         //One hand with ods for straigt and not flush hand means we do not have straight flush.
         //So I wont check for them to save time.
 
-        const judgeHands=judgeHandsAndFindTheWinner(dublicationState, straightState, handOne, handTwo)
+        //"Four of a kind" is our highest hand because the data dose not contain any Straigt Flush or Royal Flush.
+        //This conclusion has made bu considering the fact that is the data dose not contains any Flush the first requairment
+        //for Straigt Flush or Royal Flushis is false.
+        //So I skiped Straigt Flush or Royal Flush as we have no ods on these two.
+        const judgeHands = judgeHandsAndFindTheWinner(
+          dublicationState,
+          straightState,
+          handOne,
+          handTwo
+        );
         // console.log(judgeHands);
-        
-        if(judgeHands==='Player One wins') {playerOneWins++}else if(judgeHands==='Player Two wins') {playerTwoWins++}
+
+        if (judgeHands === "Player One wins") {
+          playerOneWins++;
+        } else if (judgeHands === "Player Two wins") {
+          playerTwoWins++;
+        }
       }
     });
   });
-  console.log('Player One wins '+playerOneWins, 'Player Two wins '+playerTwoWins);
+  console.log(
+    "Player One wins " + playerOneWins,
+    "Player Two wins " + playerTwoWins
+  );
 });
