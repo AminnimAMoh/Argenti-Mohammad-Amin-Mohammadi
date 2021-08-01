@@ -19,6 +19,10 @@ export const judgeHandsAndFindTheWinner = (
   //This conclusion has made bu considering the fact that is the data dose not contains any Flush the first requairment
   //for Straigt Flush or Royal Flushis is false.
   //So I skiped Straigt Flush or Royal Flush as we have no ods on these two.
+
+  //I start chaking for winner hand from highest ods to the lowest (High Card) and returning an string from each condition.
+  //So as soon as the highest hand is find the functions returns the winner and will not compering the rest of conditions.
+  //Using this dicending approch I help time complexity of the programm. 
   if (
     playerOnePairStatus.lable === "Four of a kind" &&
     playerTwoPairStatus.lable !== "Four of a kind"
@@ -60,14 +64,21 @@ export const judgeHandsAndFindTheWinner = (
         //We do not have to check for tie because we only have four simular values in a deck of card.
         //That could be relevent if we had more than one deck.
 
-
         //This condition is to double check we have a return for the function.
         return "Undefiend!!!!!!!!!!!";
       }
     } else {
+      //This condition is to double check we have a return for the function.
       return "Target Undefined!!!!!!!!!!";
     }
-  } else if (
+  }
+  //Checking for the second heighest hand "Full house".
+  //In dublication check function I have finds hands that contains one Pair and a Three of A Kind.
+  //And tag the hand with the values making the hand.
+  //Now I only have to compare players hands.
+
+  //Who has the highest "Full house" wins.
+  else if (
     playerOnePairStatus.lable === "Full house" &&
     playerTwoPairStatus.lable !== "Full house"
   ) {
@@ -77,7 +88,10 @@ export const judgeHandsAndFindTheWinner = (
     playerOnePairStatus.lable !== "Full house"
   ) {
     return "Player Two wins";
-  } else if (
+  }
+  //If the value making the "Full house" is not null we can continue.
+  //It is just to satisfy typescript as I have set null on 'comperingValues ' interface. 😝
+  else if (
     playerTwoPairStatus.lable === "Full house" &&
     playerOnePairStatus.lable === "Full house"
   ) {
@@ -93,17 +107,22 @@ export const judgeHandsAndFindTheWinner = (
         playerOnePairStatus.hand[0].value < playerTwoPairStatus.hand[0].value
       ) {
         return "Player Two wins";
-      } else if (
-        playerOnePairStatus.hand[0].value === playerTwoPairStatus.hand[0].value
-      ) {
-        return highCardCheck(playerOneValues, playerTwoValues);
       } else {
+        //We do not have to check for tie because we only have four simular values in a deck of card.
+        //That could be relevent if we had more than one deck.
+
+        //This condition is to double check we have a return for the function.
         return "Undefiend!!!!!!!!!!!";
       }
     } else {
+      //This condition is to double check we have a return for the function.
       return "Target Undefined!!!!!!!!!!";
     }
-  } else if (playerOneStraightState && !playerTwoStraightState) {
+  } 
+  //Next strung hand would be straight that i have highlight the winner with two booleans.
+  //Each player has a boolean that communicates if they have straight.
+  //True means the players has a straght false mean the player dose not have a straight.
+  else if (playerOneStraightState && !playerTwoStraightState) {
     return "Player One wins";
   } else if (playerTwoStraightState && !playerOneStraightState) {
     return "Player Two wins";
@@ -133,10 +152,6 @@ export const judgeHandsAndFindTheWinner = (
         playerOnePairStatus.hand[0].value < playerTwoPairStatus.hand[0].value
       ) {
         return "Player Two wins";
-      } else if (
-        playerOnePairStatus.hand[0].value === playerTwoPairStatus.hand[0].value
-      ) {
-        return highCardCheck(playerOneValues, playerTwoValues);
       } else {
         return "Undefiend!!!!!!!!!!!";
       }
