@@ -131,7 +131,7 @@ fs.readFile("Files/poker-hands.txt", "utf8", (err: string, res: string) => {
   );
 
   //Creating the STDOUT.text file containing the programm results.
-  fs.writeFile('STDOUT.text', `Player One :  ${playerOneWins} Hands \n Player Two :  ${playerTwoWins} Hands`, (err: any)=>{
+  fs.writeFile('STDOUT.txt', `Player One :  ${playerOneWins} Hands \n Player Two :  ${playerTwoWins} Hands`, (err: any)=>{
     err ? console.log(err) : console.log('STDOUT Ready to read. You can find this file in root folder of the project. Thank you for your time.');
   })
 });
