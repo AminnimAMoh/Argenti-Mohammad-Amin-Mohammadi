@@ -112,7 +112,6 @@ fs.readFile("Files/poker-hands.txt", "utf8", (err: string, res: string) => {
           handOne,
           handTwo
         );
-        // console.log(judgeHands);
 
         //Incrimenting won hands for winner player chanking the string output from judgeHands function.
         if (judgeHands === "Player One wins") {
