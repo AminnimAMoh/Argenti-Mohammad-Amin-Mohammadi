@@ -6,14 +6,16 @@
 export interface Hand {
   //I decide to set the values to two possible types as they
   //eather can be string for "King, Queen, Solder" and numbers.
-  values: Array<number | string>;
-  suits: Array<string >;
+  values: (number | string)[];
+  suits: string [];
 }
 
 export interface Player{
   hand: Hand,
   index: number,
-  state: number
+  rank: number,
+  rankValue: comperingValues[],
+  run: Function
 }
 
 //This interface handle types for hands in process of look For Simularities.

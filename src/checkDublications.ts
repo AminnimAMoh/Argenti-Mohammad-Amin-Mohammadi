@@ -4,9 +4,8 @@ import { Hand, comperingValues, PairState } from "./types";
 //using this function we can make decisions on hands and comper them. 😀
 export const checkDublications = (
   //Deconstructing the arguments for an easier access in the code.
-  { values: playerOneValues }: Hand,
-  { values: playerTwoValues }: Hand
-): PairState => {
+  { values: playerOneValues }: Hand
+): {rank: number, value: comperingValues[]} => {
   //Sending each player hand to 'lookForSimularities' to find dublications.
   //This function helps us to find Pairs, Three Pairs, and Two Pairs
   //Each user's dublication will be saved in an array for all hands.
@@ -16,30 +15,23 @@ export const checkDublications = (
   ).filter(({ value }) => {
     return value !== null;
   });
-  const playerTwoSimularValues: comperingValues[] = lookForSimularities(
-    playerTwoValues
-  ).filter(({ value }) => {
-    return value !== null;
-  });
-  
+
   //Sneding each player's sorted hand to 'playerThreeOfAKind' to tag them with their
   //status regarding hand dublications.
-  const playerOnePairStatus = {lable: playerThreeOfAKind(playerOneSimularValues), hand: playerOneSimularValues};
-  const playerTwoPairStatus = {lable: playerThreeOfAKind(playerTwoSimularValues), hand: playerTwoSimularValues};
-  
-  return {playerOnePairStatus: playerOnePairStatus, playerTwoPairStatus: playerTwoPairStatus}
+  const playerDublicationRank={rank: rankPlayerHandByDublications(playerOneSimularValues), value: playerOneSimularValues}
+
+  return playerDublicationRank;
 };
 
 //Sneding each player's sorted hand to 'playerThreeOfAKind' to tag them with their
 //status regarding hand dublications.
-const playerThreeOfAKind = (data: comperingValues[]): string => {
-  
+const rankPlayerHandByDublications = (data: comperingValues[]): number => {
   //Maping through the data and looking if it contains "Three of a kind".
   const fourOfAKind = data
-  .map(({ lable }) => {
-    return lable === "Four of a kind";
-  })
-  .includes(true)
+    .map(({ lable }) => {
+      return lable === "Four of a kind";
+    })
+    .includes(true);
 
   const threeOfAKind = data
     .map(({ lable }) => {
@@ -55,21 +47,20 @@ const playerThreeOfAKind = (data: comperingValues[]): string => {
     .includes(true);
 
   //Condition to set the status.
-  const state =
-    threeOfAKind && pair
-      ? "Full house"
-      : threeOfAKind && !pair
-      ? "Three of a kind"
-      : !threeOfAKind && pair && data.length > 1
-      ? "Two Pair"
-      : !threeOfAKind && pair
-      ? "Pair"
-      : fourOfAKind
-      ? "Four of a kind"
-      : "none";
+  const state = fourOfAKind
+    ? 8
+    : threeOfAKind && pair
+    ? 7
+    : threeOfAKind && !pair
+    ? 4
+    : !threeOfAKind && pair && data.length > 1
+    ? 3
+    : !threeOfAKind && pair
+    ? 2
+    : -1;
 
   // return {lable: state, value: data.value};
-  return state
+  return state;
 };
 
 const lookForSimularities = (
@@ -111,8 +102,8 @@ const lookForSimularities = (
           lable: "Three of a kind",
           value: valueToComper,
         })
-        :count === 2
-        ? handSimularities.push({
+      : count === 2
+      ? handSimularities.push({
           lable: "Four of a kind",
           value: valueToComper,
         })
