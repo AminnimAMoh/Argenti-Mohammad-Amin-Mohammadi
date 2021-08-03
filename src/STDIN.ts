@@ -6,13 +6,16 @@ import { checkDublications } from "./checkDublications";
 import { checkForStraight } from "./CheckForStraight";
 import { checkForFlush } from "./checkForFlush";
 import { judgeHandsAndFindTheWinner } from "./judgeHands";
+import {PlayerClass} from './Player'
 
-import { Hand } from "./types";
+import { Hand, Player } from "./types";
 //Creating an array to reserve all hands read from the text file.
 let inputData: Array<string> = [];
 
 let playerOneWins: number = 0;
 let playerTwoWins: number = 0;
+
+let player: Player[]=[];
 
 //Runnig a File Scan on the poker-hands.txt to read the data for the game.
 fs.readFile("Files/poker-hands.txt", "utf8", (err: string, res: string) => {
@@ -65,6 +68,7 @@ fs.readFile("Files/poker-hands.txt", "utf8", (err: string, res: string) => {
             : handData[0]
         );
         handOne.suits.push(handData[1]);
+        index===4 && player=new PlayerClass({hand: handOne, index: 1})
       } else {
         handTwo.values.push(
           parseInt(handData[0])

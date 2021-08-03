@@ -10,6 +10,12 @@ export interface Hand {
   suits: Array<string >;
 }
 
+export interface Player{
+  hand: Hand,
+  index: number,
+  state: number
+}
+
 //This interface handle types for hands in process of look For Simularities.
 export interface comperingValues {
   lable: string | null;
