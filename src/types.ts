@@ -48,3 +48,8 @@ export interface FlushState{
   playerOneFlushState: boolean,
   playerTwoFlushState: boolean
 }
+
+export interface judgmentOutput{
+  playerOneWins: number;
+  playerTwoWins: number;
+}

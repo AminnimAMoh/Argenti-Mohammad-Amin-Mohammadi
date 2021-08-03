@@ -58,7 +58,6 @@ const rankPlayerHandByDublications = (data: comperingValues[]): number => {
     : !threeOfAKind && pair
     ? 2
     : -1;
-
   // return {lable: state, value: data.value};
   return state;
 };

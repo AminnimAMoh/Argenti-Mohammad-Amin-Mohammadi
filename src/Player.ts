@@ -17,9 +17,11 @@ export class PlayerClass{
     }
     run(): Player{
     this.hand.values=this.sortPlayersHand(this.hand)
+
     const checkHandsDunlications= checkDublications(this.hand);
     this.rank=checkHandsDunlications.rank;
-    this.rankValue=checkHandsDunlications.value;
+    this.rankValue=this.fullHouseShortening(checkHandsDunlications.value);
+    
     if(this.rank === -1) this.rank= checkForStraight(this.hand.values);
     if(this.rank === -1) this.rank= checkForFlush(this.hand);
     return this
@@ -31,5 +33,13 @@ export class PlayerClass{
     }
     showTheTestResults(){
         this.rank===-1 && console.log(this.rank);
+    }
+    fullHouseShortening(rankValue: comperingValues[]){
+        if(this.rank===7) {
+            const filtering=rankValue.filter(d=> {return d.lable==='Three of a kind'})
+            return filtering
+          }else{
+            return rankValue
+          }
     }
 }
