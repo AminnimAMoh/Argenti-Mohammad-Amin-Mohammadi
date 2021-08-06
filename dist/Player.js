@@ -6,9 +6,7 @@ const CheckForStraight_1 = require("./CheckForStraight");
 const checkForFlush_1 = require("./checkForFlush");
 class PlayerClass {
     constructor(hand, index) {
-        this.hand = hand,
-            this.index = index,
-            this.rank = -1;
+        (this.hand = hand), (this.index = index), (this.rank = -1);
         this.rankValue = [];
     }
     run() {
@@ -18,8 +16,8 @@ class PlayerClass {
         this.rankValue = this.fullHouseShortening(checkHandsDunlications.value);
         if (this.rank === -1)
             this.rank = CheckForStraight_1.checkForStraight(this.hand.values);
-        if (this.rank === -1)
-            this.rank = checkForFlush_1.checkForFlush(this.hand);
+        if (this.rank === -1 || this.rank === 5)
+            this.rank = checkForFlush_1.checkForFlush(this.hand, this.rank);
         return this;
     }
     sortPlayersHand({ values }) {
@@ -32,7 +30,9 @@ class PlayerClass {
     }
     fullHouseShortening(rankValue) {
         if (this.rank === 7) {
-            const filtering = rankValue.filter(d => { return d.lable === 'Three of a kind'; });
+            const filtering = rankValue.filter((d) => {
+                return d.lable === "Three of a kind";
+            });
             return filtering;
         }
         else {
