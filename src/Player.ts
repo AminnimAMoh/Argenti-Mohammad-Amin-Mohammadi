@@ -43,3 +43,5 @@ export class PlayerClass{
           }
     }
 }
+
+module.exports.PlayerClass=PlayerClass;

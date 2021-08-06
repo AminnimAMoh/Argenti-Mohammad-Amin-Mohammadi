@@ -1,5 +1,5 @@
 //Importing the array type to be used as arrgument type control.
-import { Hand, comperingValues, PairState } from "./types";
+import { Hand, comperingValues } from "./types";
 
 //using this function we can make decisions on hands and comper them. 😀
 export const checkDublications = (
@@ -101,7 +101,7 @@ const lookForSimularities = (
           lable: "Three of a kind",
           value: valueToComper,
         })
-      : count === 2
+      : count === 3
       ? handSimularities.push({
           lable: "Four of a kind",
           value: valueToComper,
@@ -112,3 +112,6 @@ const lookForSimularities = (
   //At the end we return all these information to the responsible object
   return handSimularities;
 };
+
+
+module.exports.checkDublications=checkDublications;
